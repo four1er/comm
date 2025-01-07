@@ -295,3 +295,156 @@ typename __default_alloc_template<__threads, __inst>::_Obj
     *__default_alloc_template<__threads, __inst>::_S_free_list[_NFREELISTS] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
+
+template <class _Tp>
+class allocator {
+    typedef alloc _Alloc;
+
+    public:
+    typedef size_t size_type;
+    typedef ptrdiff_t difference_type;
+    typedef _Tp* pointer;
+    typedef const _Tp* const_pointer;
+    typedef _Tp& reference;
+    typedef const _Tp& const_reference;
+    typedef _Tp value_type;
+
+    template <class _Tp1> struct rebind {
+        typedef allocator<_Tp1> other;
+    };
+
+    allocator() throw() {}
+    allocator(const allocator&) throw() {}
+    template <class _Tp1>
+    allocator(const allocator<_Tp1>&) throw() {}
+    ~allocator() throw() {}
+
+    pointer address(reference __x) const {return &__x;};
+    const_pointer address(const_reference __x) const {return &__x;};
+
+    _Tp* allocate (size_type __n, const void* = 0) {
+        return __n != 0 ? static_cast<_Tp*>(_Alloc::allocate(__n * sizeof(_Tp))) : 0;
+    }
+
+    void deallocate (pointer __p,size_type __n) {
+        _Alloc::deallocate(__p, __n * sizeof(_Tp));
+    }
+
+    size_type max_size () const throw() {
+        return size_t(-1) / sizeof(_Tp);
+    }
+
+    void construct (pointer __p, const _Tp& __val) {
+        new(__p) _Tp(__val);
+    }
+
+    void destroy (pointer __p) {
+        __p->~_Tp();
+    }
+};
+
+
+template <>
+class allocator <void> {
+    public:
+    typedef size_t size_type;
+    typedef ptrdiff_t difference_type;
+    typedef void* pointer;
+    typedef const void* const_pointer;
+    typedef void value_type;
+
+    template <class _Tp1> struct rebind {
+        typedef allocator<_Tp1> other;
+    };
+};
+
+template <class _T1, class _T2>
+inline bool operator==(const allocator<_T1> &, const allocator<_T2> &) {
+  return true;
+}
+
+template <class _T1, class _T2>
+inline bool operator!=(const allocator<_T1> &, const allocator<_T2> &) {
+  return false;
+}
+
+template <class _Tp, class _Alloc> struct __allocator {
+  _Alloc __underlying_alloc;
+
+  typedef size_t size_type;
+  typedef ptrdiff_t difference_type;
+  typedef _Tp *pointer;
+  typedef const _Tp *const_pointer;
+  typedef _Tp &reference;
+  typedef const _Tp &const_reference;
+  typedef _Tp value_type;
+
+  template <class _Tp1> struct rebind {
+    typedef __allocator<_Tp1, _Alloc> other;
+  };
+
+  __allocator() noexcept {}
+  __allocator(const __allocator &__a) noexcept
+      : __underlying_alloc(__a.__underlying_alloc) {}
+
+  template <class _Tp1>
+  __allocator(const __allocator<_Tp1, _Alloc> &__a) noexcept
+      : __underlying_alloc(__a.__underlying_alloc) {}
+
+  ~__allocator() noexcept {}
+
+  pointer address(reference __x) const { return &__x; }
+  const_pointer address(const_reference __x) const { return &__x; }
+
+  // __n is permitted to be 0.
+  _Tp *allocate(size_type __n, const void * = 0) {
+    return __n != 0 ? static_cast<_Tp *>(
+                          __underlying_alloc.allocate(__n * sizeof(_Tp)))
+                    : 0;
+  }
+
+  // __p is not permitted to be a null pointer.
+  void deallocate(pointer __p, size_type __n) {
+    __underlying_alloc.deallocate(__p, __n * sizeof(_Tp));
+  }
+
+  size_type max_size() const noexcept { return size_t(-1) / sizeof(_Tp); }
+
+  void construct(pointer __p, const _Tp &__val) { new (__p) _Tp(__val); }
+  void destroy(pointer __p) { __p->~_Tp(); }
+};
+
+template <class _Alloc> class __allocator<void, _Alloc> {
+  typedef size_t size_type;
+  typedef ptrdiff_t difference_type;
+  typedef void *pointer;
+  typedef const void *const_pointer;
+  typedef void value_type;
+
+  template <class _Tp1> struct rebind {
+    typedef __allocator<_Tp1, _Alloc> other;
+  };
+};
+
+template <class _Tp, class _Alloc>
+inline bool operator==(const __allocator<_Tp, _Alloc> &__a1,
+                       const __allocator<_Tp, _Alloc> &__a2) {
+  return __a1.__underlying_alloc == __a2.__underlying_alloc;
+}
+
+template <class _Tp, class _Alloc>
+inline bool operator!=(const __allocator<_Tp, _Alloc> &__a1,
+                       const __allocator<_Tp, _Alloc> &__a2) {
+  return __a1.__underlying_alloc != __a2.__underlying_alloc;
+}
+template <int inst>
+inline bool operator==(const __malloc_alloc_template<inst> &,
+                       const __malloc_alloc_template<inst> &) {
+  return true;
+}
+
+template <int __inst>
+inline bool operator!=(const __malloc_alloc_template<__inst> &,
+                       const __malloc_alloc_template<__inst> &) {
+  return false;
+}
