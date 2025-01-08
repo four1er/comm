@@ -1,0 +1,31 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnSave": true,
+    "editor.fontSize": 17,
+    "terminal.integrated.fontSize": 18,
+    "editor.fontFamily": "codenewroman nerd font",
+    "editor.fontLigatures": true,
+    "scm.diffDecorationsGutterPattern": {
+        "added": true
+    },
+    "terminal.integrated.fontFamily": "codenewroman nerd font",
+    "editor.codeLensFontSize": 2,
+    "terminal.integrated.fontWeight": "5",
+    "terminal.integrated.lineHeight": 1.1,
+    "terminal.integrated.fontWeightBold": "20",
+    "editor.fontWeight": "20",
+    "editor.wordWrap": "bounded",
+    "editor.lineHeight": 1.4,
+    "window.zoomLevel": -0.6,
+    "editor.wordWrapColumn": 70,
+    "css.format.enable": false,
+    "editor.formatOnSaveMode": "file",
+    "clang-format.style" : "file",
+    // 依次从当前目录、工作目录、path变量，加载默认风格配置文件(.clang-format)。
+    // 如果找不到则使用fallbackStyle, 没有fallbackStyle则默认LLVM,C++。
+    "clang-format.assumeFilename": "./.vscode/.clang-format", //使用工作区独立配置文件
+    // "clang-format.assumeFilename": "/home/user/.clang-format", //绝对路径，用于全局统一配置
+    "clang-format.executable": "/usr/bin/clang-format",
+    "clang-format.fallbackStyle": "Google",
+}

@@ -7,15 +7,15 @@ struct __false_type {};
 
 template <class _Tp>
 struct __type_traits {
-    typedef __true_type this_dummy_member_must_be_first;
-    typedef __false_type has_trivial_default_constructor;
-    typedef __false_type has_trivial_copy_constructor;
-    typedef __false_type has_trivial_assignment_operator;
-    typedef __false_type has_trivial_destructor;
-    typedef __false_type is_POD_type;
+  typedef __true_type this_dummy_member_must_be_first;
+  typedef __false_type has_trivial_default_constructor;
+  typedef __false_type has_trivial_copy_constructor;
+  typedef __false_type has_trivial_assignment_operator;
+  typedef __false_type has_trivial_destructor;
+  typedef __false_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<bool> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -24,7 +24,7 @@ struct __type_traits<bool> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<char> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -33,7 +33,7 @@ struct __type_traits<char> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<signed char> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -42,7 +42,7 @@ struct __type_traits<signed char> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<unsigned char> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -51,7 +51,7 @@ struct __type_traits<unsigned char> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<wchar_t> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -60,7 +60,7 @@ struct __type_traits<wchar_t> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<short> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -69,7 +69,7 @@ struct __type_traits<short> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<unsigned short> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -78,7 +78,7 @@ struct __type_traits<unsigned short> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<int> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -87,7 +87,7 @@ struct __type_traits<int> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<unsigned int> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -96,7 +96,7 @@ struct __type_traits<unsigned int> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<long> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -105,7 +105,7 @@ struct __type_traits<long> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<unsigned long> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -114,7 +114,7 @@ struct __type_traits<unsigned long> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<long long> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -123,7 +123,7 @@ struct __type_traits<long long> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<unsigned long long> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -132,8 +132,7 @@ struct __type_traits<unsigned long long> {
   typedef __true_type is_POD_type;
 };
 
-
-template <> 
+template <>
 struct __type_traits<float> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -142,7 +141,7 @@ struct __type_traits<float> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<double> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -151,7 +150,7 @@ struct __type_traits<double> {
   typedef __true_type is_POD_type;
 };
 
-template <> 
+template <>
 struct __type_traits<long double> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
@@ -159,7 +158,6 @@ struct __type_traits<long double> {
   typedef __true_type has_trivial_destructor;
   typedef __true_type is_POD_type;
 };
-
 
 #ifdef __USE_STDCPP11_TYPE_TRAITS__
 
@@ -179,17 +177,23 @@ using true_type = integral_constant<bool, true>;
 using false_type = integral_constant<bool, false>;
 
 /// remove_const
-template <typename _Tp> 
-struct remove_const { typedef _Tp type; };
+template <typename _Tp>
+struct remove_const {
+  typedef _Tp type;
+};
 
-template <typename _Tp> 
-struct remove_const<_Tp const> { typedef _Tp type; };
+template <typename _Tp>
+struct remove_const<_Tp const> {
+  typedef _Tp type;
+};
 
 /// remove_volatile
-template <typename _Tp> 
-struct remove_volatile { typedef _Tp type; };
+template <typename _Tp>
+struct remove_volatile {
+  typedef _Tp type;
+};
 
-template <typename _Tp> 
+template <typename _Tp>
 struct remove_volatile<_Tp volatile> {
   typedef _Tp type;
 };
@@ -262,8 +266,6 @@ template <>
 struct __is_void_helper<void> : public true_type {};
 
 template <typename _Tp>
-struct is_void : public __is_void_helper<__remove_cv_t<_Tp>>::type {
-
-};
+struct is_void : public __is_void_helper<__remove_cv_t<_Tp>>::type {};
 
 #endif
