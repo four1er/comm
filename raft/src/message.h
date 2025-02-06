@@ -25,4 +25,7 @@ static_assert(sizeof(TMessage) == 8);
 
 struct TLogEntry : public TMessage {};
 
-struct
+struct TMessageEX : public TMessage {};
+
+template <typename T>
+class TMessageHolder {};
