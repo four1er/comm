@@ -1,0 +1,3 @@
+/data/workspace/four1er/flib/net/coroio/_build/CMakeFiles/coroio.dir
+/data/workspace/four1er/flib/net/coroio/_build/CMakeFiles/edit_cache.dir
+/data/workspace/four1er/flib/net/coroio/_build/CMakeFiles/rebuild_cache.dir
