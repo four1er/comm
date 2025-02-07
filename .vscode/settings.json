@@ -28,4 +28,7 @@
     // "clang-format.assumeFilename": "/home/user/.clang-format", //绝对路径，用于全局统一配置
     "clang-format.executable": "/usr/bin/clang-format",
     "clang-format.fallbackStyle": "Google",
+    "clangd.arguments": [
+        "--query-driver=/usr/bin/clang17++"
+    ]
 }
